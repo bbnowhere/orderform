@@ -1,0 +1,174 @@
+<! DOCTYPE html>
+  <html>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title> Computer Component Order Form </title>
+
+  <head>
+	  <!-- The below given lines defines how to link external CSS framework to the code. In the below code i have added Bootstrap CSS framework to design the few form of the component -->
+
+    <!-- Latest compiled and minified CSS -->
+    <linkrel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </head>
+
+  <!-- The below code code is added to customize the view of the form using CSS -->
+
+
+  <style>
+    body {
+      width: 100%;
+      margin: 0 auto;
+      padding: 50px;
+    }
+
+    .form-control {
+      width: 500px;
+    }
+
+    .container-md {
+      width: 500px;
+    }
+
+    hr {
+      border: 1px dotted #ccc;
+      width: 500px;
+    }
+
+    .btnSubmit1 {
+      width: 30%;
+      height: 50px;
+      background: orange;
+      border: none;
+      color: white;
+      font-size: 1.25em;
+      font-family: 'Nanum Gothic';
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+<!-- 
+	The below given javascript code has been added for the following points 
+	1. Define the price for each component and display when user select the component from the dropdown.
+	2. Display the price for each compoennt under the ID name 'rs' 
+
+	The function addValue () has been written to calculate the final price of the item as per qauntity selected by the user and display the items inside the checkout table after clicking on 
+	the 'Add' button.
+
+	Function btnCheckout() is written to complete the checkout processs after filling the billing details. 
+-->
+
+  <script>
+
+    function price() {
+      var d = document.getElementById("component").value;
+      var Mouse = 200;
+      var Keyboard = 300;
+      var Router = 500;
+      if (d == "Mouse") {
+        document.getElementById("rs").innerHTML = Mouse;
+      }
+      if (d == "Keyboard") {
+        document.getElementById("rs").innerHTML = Keyboard;
+      }
+      if (d == "WiFi Router") {
+        document.getElementById("rs").innerHTML = Router;
+      }
+    }
+
+    function addValue() {
+      var tableBody = document.getElementById("table-body");
+      var td1 = document.createElement("td");
+      var td2 = document.createElement("td");
+      var td3 = document.createElement("td");
+      var row = document.createElement("tr");
+      td1.innerHTML = document.getElementById("component").value;
+      td2.innerHTML = document.getElementById("quantity").value;
+      td3.innerHTML = document.getElementById("rs").innerHTML;
+
+      row.appendChild(td1);
+      row.appendChild(td2);
+      row.appendChild(td3);
+
+      tableBody.appendChild(row);
+
+      const targetDiv = document.getElementById("toggle");
+      if (targetDiv.style.display == "none") {
+        targetDiv.style.display = "block";
+      }
+    }
+
+    function btnCheckout() {
+      var name = document.getElementById("name").value;
+
+      alert(" Hello " + name + ",Thank you for placing the order");
+    }
+  </script>
+<body>
+    <h2> Computer Component Order Form </h2>
+    <form action="#" method="post">
+
+
+	    <!--  The HTML and Boostrap framework class is defined in the below given code  -->
+	    
+      <div class="container-md">
+
+        <label class="form-label"> Select Computer Component :</label>
+        <select autocomplete="off" class="form-control" onchange="price()" id="component" required>
+          <option value=""> -- Select -- </option>
+          <option value="Mouse"> Mouse </option>
+          <option value="Keyboard"> Keyboard </option>
+          <option value="WiFi Router"> WiFi Router </option>
+        </select></br>
+        <label class="form-label" for="price">Price:</label><label class="form-label" id="rs"></label><br>
+        <label class="form-label" for="quantity">Quantity:</label> <input class="form-control" autocomplete="off" type="number" id="quantity" name="quantity" min="1" max="5"></br></br>
+
+        <input type="button" class="btnSubmit1" value="Add" id="btnSubmit" onclick="addValue()">
+        <input type="reset" class="btnSubmit1" value="Reset">
+
+        </br>
+
+        <h4> Checkout </h4>
+        <hr>
+        <div id="toggle" style="display:none">
+          <h4> List of ITEMS </h4>
+          <table class="table table-bordered">
+            <tr>
+              <th>Name</th>
+              <th>Quantity</th>
+              <th>Price</th>
+            </tr>
+            <tbody id="table-body">
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="container-md">
+        <div class="form-outline">
+          <label class="form-label" for="name"> Enter Your Name </label>
+          <input class="form-control" type="text" id="name" placeholder=" " pattern=[A-Z\sa-z]{3,20} required>
+        </div>
+        <div>
+          <label class="form-label" for="email"> Enter Your E-mail </label>
+          <input class="form-control" type="email" id="email" placeholder="" required>
+        </div>
+        <div>
+          <label class="form-label" for="phone"> Enter Your Phone Number </label>
+          <input class="form-control" type="tel" id="phone" placeholder="" pattern=(\d{3})-?\s?(\d{3})-?\s?(\d{4}) required>
+        </div>
+        <div>
+          <label class="form-label" for="message"> Message </label>
+          <textarea class="form-control" rows="3" placeholder="Any other information" required> </textarea>
+        </div></br>
+        <input type="button" class="btnSubmit1" value="Checkout" onclick="btnCheckout()">
+      </div>
+   </form>
+  </body>
+  </html>
+
+
